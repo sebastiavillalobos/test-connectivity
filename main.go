@@ -1,4 +1,5 @@
 package main
+
 import (
 	"encoding/json"
 	"fmt"
@@ -16,6 +17,7 @@ var (
 
 func handler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "Welcome to the CRUD API!\n")
+	log.Printf("%s %s %s %s", r.RemoteAddr, r.Host, r.Method, r.URL)
 }
 
 func createHandler(w http.ResponseWriter, r *http.Request) {
@@ -81,8 +83,7 @@ func main() {
 	http.HandleFunc("/delete", deleteHandler)
 	http.HandleFunc("/healthz", func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "OK\n")
-		log.Printf("%s %s %s", r.RemoteAddr, r.Method, r.URL)
+		log.Printf("%s %s %s %s", r.RemoteAddr, r.Host, r.Method, r.URL)
 	})
 	log.Fatal(http.ListenAndServe(":8383", nil))
 }
-

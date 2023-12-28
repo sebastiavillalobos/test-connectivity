@@ -3,7 +3,7 @@
 APP_NAME ?= test-connectivity
 GH_USER ?= sebastiavillalobos
 VISIBILITY ?= private
-
+VERSION ?= latest
 
 # Build the Docker image
 build:
@@ -39,9 +39,9 @@ test:
 
 # Upload Docker image to Docker Hub
 upload_image: build
-	@docker buildx build --platform linux\/amd64 -t test-connectivity-amd64:latest .
-	@docker tag test-connectivity-amd64:latest sebiuo\/test-connectivity:latest
-	@docker push sebiuo\/test-connectivity:latest
+	@docker buildx build --platform linux\/amd64 -t test-connectivity-amd64:$(VERSION) .
+	@docker tag test-connectivity-amd64:$(VERSION) sebiuo\/test-connectivity:$(VERSION)
+	@docker push sebiuo\/test-connectivity:$(VERSION)
 	@cd ..
 
 # Run sh in container
